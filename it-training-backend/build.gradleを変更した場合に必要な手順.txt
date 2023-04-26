@@ -1,0 +1,16 @@
+■SVN更新時の各自の作業
+gradleファイルの修正を反映するため、各自のeclipseで以下の作業を行ってください。
+
+　手順１．eclipse上の「root]プロジェクトを右クリックし、[Team | 更新]メニューを選択
+　手順２．「it-training-backend]プロジェクトを右クリックし、[Gradle | Refresh Gradle Project]メニューを選択
+　手順３．「gradle/delete default folder.launch]を右クリックし、[Run as| delete default folder]メニューを選択
+　手順４．すべてのプロジェクトをリフレッシュ
+　以上です。
+
+=============================================
+■build.gradle変更時のTeamsの周知テンプレート
+
+-----------------------------------------
+build.gradleを変更しました。
+SVN更新する際は、「/it-training-backend/build.gradleを変更した場合に必要な手順.txt」を実施してください。
+-----------------------------------------

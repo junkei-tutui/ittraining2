@@ -1,0 +1,29 @@
+version: "2"
+services:
+  database:
+    build: ./mysql
+    restart: always
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: training
+      TZ: "Asia/Tokyo"
+    volumes:
+        - ./mysql/data:/var/lib/mysql
+        - ./mysql/initdb.d:/docker-entrypoint-initdb.d
+    command: --innodb-use-native-aio=0
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=database
+      - PMA_USER=root
+      - PMA_PASSWORD=training
+    ports:
+       - 3380:80
+    volumes:
+      - "./phpmyadmin/sessions:/sessions"
+
+volumes:
+  mysql-data:
+    driver: local

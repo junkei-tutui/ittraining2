@@ -1,0 +1,37 @@
+ERMasterでDB定義を変更する方法
+※ ERMasterの基本的な使用方法は以下のサイトを参照してください。
+http://ermaster.sourceforge.net/index_ja.html
+
+１．DBを編集する
+  DB定義の変更をする。
+  注意点） 
+   ・ 同じ物理名、論理名の項目を作成しないようにする。
+   ・ 型定義を忘れない。
+   ・できる限り「説明」に項目の説明を記載すること。区分等の場合はその区分値当の記載は必須 
+   
+２．DB定義書をエクスポートする
+  ・ERMasterのエディタ上で右クリック→[エクスポート]→[Excel]を選択。
+  ・「Excel出力ファイル」に「【project name】 DB定義書_yyyymmdd_n.xls」を指定
+     ※ 「\\root\common\」直下に作成される。
+     yyyymmddは日付、nは日付別の更新番号（連番）
+  ※ 以下はデフォルト状態で、変わっていたら設定してください。
+  ・「テンプレート」は「登録されているテンプレートから選択する」を選択し、
+     「デフォルト（日本語）」とする。
+  ・「ER図をエクセルに張り付ける」「シート名に論理名を使用する」にチェックを入れる。
+  
+３．変更履歴を記載
+  以下のSharePointにある「【project name】 DB定義書_変更履歴.xls」に変更履歴を記載する。
+  https://zeincorp.sharepoint.com/:x:/s/zein/EYMw_DhkV3ZHghZkv54aF94B-Wvhb0_fg5ZuEmn35khIqQ?e=quAuDc
+  
+４．変更履歴をDB定義書にマージする
+  ２．で出力したDB定義書の「変更履歴」シートを３．で記載した変更履歴シートに置き換える。
+  ※ SharePoint上ではシートのコピーができないのでローカルにファイルを落として作業してください。
+  
+５．変更したERMasterを保存する。
+  その際にERMasterファイル（darwin-db.erm）のサイズが1.5MBを超える場合は内部で設定情報が重複している恐れがあるため
+  「erm_Cleaner.xlsm」を使用してERMasterファイルの最適化を行う。
+  
+６．DB、JAVAのソースに反映
+  root\dockerにある。
+  「ERMasterからDDLを生成し、dockerに反映する方法.txt」に記載された内容を実施してください。
+

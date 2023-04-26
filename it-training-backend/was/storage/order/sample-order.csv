@@ -1,0 +1,7 @@
+client_ID,order_No,order_date,delivery_date,order_amount,delivery_zip,delivery_destination,responsible_party,order_subject,Item_No,item_code,item_name,color_code,size_code,order_quantity,price,unit_price,memo
+00001,01,2023/04/29,2023/04/31,68000,1030027,東京都中央区日本橋2-15-3 ヒューリック　江戸橋ビル3階,森本　太郎,2021SS　Status Anxiety 試販用,01,01001211,Status Anxiety　T-shirt,01,02,10,6800,68000,備考
+00001,01,2023/04/29,2023/04/31,68000,1030027,東京都中央区日本橋2-15-3 ヒューリック　江戸橋ビル3階,森本　太郎,2021SS　Status Anxiety 試販用,02,01001211,Status Anxiety　T-shirt,02,02,10,6800,68000,備考
+00001,01,2023/04/29,2023/04/31,68000,1030027,東京都中央区日本橋2-15-3 ヒューリック　江戸橋ビル3階,森本　太郎,2021SS　Status Anxiety 試販用,03,01001211,Status Anxiety　T-shirt,03,02,10,6800,68000,備考
+00001,02,2023/04/29,2021/06/01,160000,1030027,東京都中央区日本橋2-15-3 ヒューリック　江戸橋ビル5階,鈴木　一郎,2021SS　somedays lovin 試販用,01,01002211,somedays lovin Jeans,01,01,5,32000,160000,備考
+00001,02,2023/04/29,2021/06/01,160000,1030027,東京都中央区日本橋2-15-3 ヒューリック　江戸橋ビル5階,鈴木　一郎,2021SS　somedays lovin 試販用,02,01002211,somedays lovin Jeans,01,02,5,32000,160000,備考
+00001,02,2023/04/29,2021/06/01,160000,1030027,東京都中央区日本橋2-15-3 ヒューリック　江戸橋ビル5階,鈴木　一郎,2021SS　somedays lovin 試販用,03,01002211,somedays lovin Jeans,01,03,5,32000,160000,備考

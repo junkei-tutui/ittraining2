@@ -1,0 +1,230 @@
+/*-- @training 共通レイアウト用CSS追加 --*/
+// 基本画面フォントサイズ設定
+$pageTitleFontSize: 18px; // 画面タイトル
+
+$headerlabelFontSize: 16px; // ヘッダラベルフォントサイズ
+$contentsFontSize: 14px; // 標準のコンテンツラベルのフォントサイズ
+// バリデーションエラー表示エリアありの場合の高さ（小数点込みで調整が必要）
+// (none):40px、 medium: 22px (14px)、small: 32px、mini: 13.8px
+$contentsErrorFontSize: 22px;
+// 入力コントローラーサイズ
+// (none):40px、 medium: 36px (14px)、small: 32px、mini: 28px
+$innerInputSize: 36px;
+// 表示用ラベルサイス
+// (none):40px、 medium: 36px (14px)、small: 32px、mini: 28px
+$labelLineSize: 36px;
+
+/* -- 画面全体で使用するGridの設定 --*/
+// 画面ヘッダ項目スタイル
+.grid-content-header {
+  font-size: $headerlabelFontSize;
+  border-radius: 4px;
+  font-weight: bold;
+  min-height: $innerInputSize;
+  line-height: $innerInputSize;
+  padding-left: 5px;
+}
+
+.grid-content {
+  font-size: $contentsFontSize;
+  border-radius: 4px;
+  min-height: $innerInputSize;
+  line-height: $innerInputSize;
+}
+
+// 画面項目スタイル
+.grid-content-line-label {
+  font-size: $contentsFontSize;
+  border-radius: 2px;
+  min-height: $labelLineSize;
+  line-height: $labelLineSize;
+}
+
+// 画面項目スタイル（入力項目なし）
+.grid-content-no-input {
+  font-size: $contentsFontSize;
+  border-radius: 4px;
+  min-height: $innerInputSize;
+  line-height: $innerInputSize;
+  padding-bottom: $contentsErrorFontSize;
+}
+
+// 画面項目スタイル（コンテンツが何もない場合）
+.grid-content-empty {
+  font-size: $contentsFontSize;
+  border-radius: 4px;
+  min-height: $innerInputSize;
+  line-height: $innerInputSize;
+  padding-bottom: calc(#{$contentsErrorFontSize} + 5px);
+}
+
+// 画面項目ラベル表示スタイル
+// このスタイルは入力コントロールと文字位置を一致させるためのスタイルです。
+.grid-content-label {
+  font-size: $contentsFontSize;
+  border-radius: 4px;
+  min-height: $innerInputSize;
+  line-height: $innerInputSize;
+  padding-bottom: $contentsErrorFontSize;
+}
+
+.grid-content-note-label {
+  font-size: $contentsFontSize;
+  border-radius: 4px;
+  height: $innerInputSize;
+  min-height: $innerInputSize;
+  line-height: $innerInputSize;
+}
+
+// テキストボタン用のテキストスタイル
+.buttom-inner-text {
+  font-size: $headerlabelFontSize;
+  font-weight: bold;
+}
+
+/* -- 数値項目に対して右寄せ（el-colに設定） --*/
+.col-item-number {
+  text-align:right;
+}
+
+/* -- 検索条件部のスタイル設定 -- */
+.group-box {
+  position: relative;
+  margin: 1em 0;
+  padding: 2em 1em 2em 1em;
+  border: solid 3px #858585;
+  border-radius: 8px;
+}
+.group-box .group-box-title {
+  position: absolute;
+  display: inline-block;
+  top: -13px;
+  left: 10px;
+  padding: 0 9px;
+  line-height: 1;
+  background: #fff;
+  color: #000000;
+}
+.group-box p {
+  margin: 0;
+  padding: 0;
+}
+
+// カードボタンのサイズ（メインボタンサイズ）
+.card-button {
+  font-weight: bold;
+  text-align: center;
+  height: calc(#{$innerInputSize} + 4px);
+  width: 120px;
+}
+
+// カードボタンのサイズ（サブボタンサイズ）
+.inner-card-button {
+  text-align: center;
+  height: calc(#{$innerInputSize} + 4px);
+  width: 85px;
+}
+
+// カードボタンのサイズ（行追加用ボタンサイズ）
+.list-line-card-button {
+  font-weight: bold;
+  text-align: center;
+  height: calc(#{$innerInputSize} + 4px);
+  width: 140px;
+}
+
+// custom main button style
+.el-button--training-main-button {
+  color: #fff;
+  background-color: #3b4759;
+  border-color: #3b4759;
+}
+
+.el-button--training-main-button:hover {
+  color: #fff;
+  background-color: #545f70;
+  border-color: #545f70;
+}
+
+.el-button--training-main-button:visited {
+  color: #fff;
+  background-color: #3b4759;
+  border-color: #3b4759;
+}
+
+.el-button--training-main-button:active {
+  color: #FFF;
+  background: #3b4759;
+  border-color: #3b4759;
+}
+
+.el-button--training-main-button:focus {
+  color: #FFF;
+  border-color: #545f70;
+  background-color: #545f70;
+}
+
+.el-button--training-main-button.is-disabled,
+.el-button--training-main-button.is-disabled:active,
+.el-button--training-main-button.is-disabled:focus,
+.el-button--training-main-button.is-disabled:hover {
+  color: #FFF;
+  background-color: #a5a4a8;
+  border-color: #a5a4a8;
+}
+
+// sub button style
+.el-button--training-sub-button {
+  color: #fff;
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.el-button--training-sub-button:hover {
+  color: #fff;
+  background-color: #4bd4f7;
+  border-color: #4bd4f7;
+}
+
+.el-button--training-sub-button:visited {
+  color: #fff;
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.el-button--training-sub-button:active {
+  color: #FFF;
+  background: #1890ff;
+  border-color: #1890ff;
+}
+
+.el-button--training-sub-button:focus {
+  color: #FFF;
+  border-color: #4bd4f7;
+  background-color: #4bd4f7;
+}
+
+.el-button--training-sub-button.is-disabled,
+.el-button--training-sub-button.is-disabled:active,
+.el-button--training-sub-button.is-disabled:focus,
+.el-button--training-sub-button.is-disabled:hover {
+  color: #FFF;
+  background-color: #a5a4a8;
+  border-color: #a5a4a8;
+}
+
+
+/*-- @training 以下、追加（ボタンアイコンの文字サイズ：ボタンサイズ=デフォルト） --*/
+.training-btn-icon{
+  font-size: 1.3rem;
+}
+
+/*-- @training 以下、追加（ボタンアイコンの文字サイズ：リスト用：ボタンサイズ=miniサイス） --*/
+.training-btn-line-icon{
+  font-size: 1.3rem;
+}
+
+/*-- @training 以下、追加（ボタンアイコンの文字サイズmini：リスト用：ボタンサイズ=miniサイス） --*/
+.training-btn-line-iconmini{
+  font-size: 1.1rem;
+}

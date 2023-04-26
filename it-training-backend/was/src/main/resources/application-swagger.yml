@@ -1,0 +1,28 @@
+
+#spring:
+  #データベース接続
+  #datasource:
+  #  url: jdbc:mysql://localhost:3306/training
+  #  username: training
+  #  password: training
+
+server:
+   port : 8080  
+   servlet:
+      context-path: /
+
+training:
+  security:
+    # 未認証でアクセス可能URI
+    permit-all-uris: /swagger*/**,/v3/api-docs/**,/**/*.css,/**/*.js,/**/.png
+
+  
+ # ---------------------------------------------
+ # テスト用設定
+ # ---------------------------------------------
+training.test:
+  # テスト日時 ISO形式　例：2007-12-03T10:15:30
+  # system-date-time: 9999-12-03T10:15:30
+
+  # RESTコントローラーをswaggerUIから叩けるようにするため、認証トークンをクッキーで受け渡す
+  security.cookie-auth-token: true

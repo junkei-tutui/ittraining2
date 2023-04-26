@@ -1,0 +1,5 @@
+rootProject.name = 'it-training-backend'
+
+include 'was'
+
+include 'common'

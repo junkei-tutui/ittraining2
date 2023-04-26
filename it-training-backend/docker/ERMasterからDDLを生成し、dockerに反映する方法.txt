@@ -1,0 +1,47 @@
+ERMasterからDDLを生成し、dockerに反映する方法
+
+1. ERMasterからDDLを生成
+
+2. DDLの先頭に以下のSQLを挿入
+
+	DROP DATABASE IF EXISTS training;
+	CREATE DATABASE training;
+	USE training;
+
+3.  DDLのDROP INDEXを削除
+
+4.  DDLの「, SYSDATE()」を削除 ※出来る限りMySQLで日付のデフォルトを使用しないこと
+
+5.  DDLのファイル名を00_create_table.sqlに変更し、docker/mysql/initdb.d配下にコピー
+
+6. 以下のバッチを実行
+	docker/delete_mysql_db.bat
+
+7. MySQLのdockerコンテナを起動
+   docker/docker-compose up
+
+8. 以下のフォルダを削除
+   \it-training-backend\.gradle
+
+=============================================================================
+9. 以下のコマンドを実行
+	--------------------------------------------------------------------
+	cd 「commonのフォルダ」
+	call ../gradlew domaCodeGenTrainingDao domaCodeGenTrainingEntity domaCodeGenTrainingSql
+	--------------------------------------------------------------------
+    ※ テーブル追加時は以下も実施する。
+    --------------------------------------------------------------------
+    call ../gradlew genCommonDao
+    call ../gradlew genProjectDao -PtrainingProjectName="common"
+    --------------------------------------------------------------------
+	
+10. eclipse上で「common」プロジェクトを右クリックし、[Refresh]メニュー選択
+
+11. [Project  |  Clean]メニューを選択
+
+12. 「common」プロジェクトにコンパイルエラーが発生していないことを確認し、以下の成果物をリポジトリ（Svn or Git）にコミットする
+
+　・ERMaster
+　・DDL
+　・「common」プロジェクト配下のJavaソースとSQLファイル
+

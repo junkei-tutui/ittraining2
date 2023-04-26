@@ -1,0 +1,9 @@
+package ${packageName};
+
+import org.seasar.doma.Dao;
+import org.seasar.doma.boot.ConfigAutowireable;
+
+@ConfigAutowireable
+@Dao
+public interface ${subInterfaceName} extends ${supperInterfacePackageName}.${superInterfaceName} {
+}

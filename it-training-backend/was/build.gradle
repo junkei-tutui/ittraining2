@@ -1,0 +1,24 @@
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.session:spring-session-core'
+	
+	implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
+	implementation 'io.awspring.cloud:spring-cloud-starter-aws'
+
+	runtimeOnly 'org.springframework.cloud:spring-cloud-starter-sleuth'
+	
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation "org.apache.commons:commons-text:${commonsTextVersion}"
+	implementation "commons-io:commons-io:${commonsIoVersion}"
+	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-csv'
+	
+	runtimeOnly "org.springdoc:springdoc-openapi-ui:${springDocOpenApiVersion}"
+	implementation "io.swagger.core.v3:swagger-annotations:${swaggerVersion}"
+	implementation project(':common')
+}
+
+bootJar {
+    launchScript()
+}

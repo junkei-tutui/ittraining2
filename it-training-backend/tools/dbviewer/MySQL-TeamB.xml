@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="17.0.1" class="java.beans.XMLDecoder">
+ <array class="zigen.plugin.db.core.IDBConfig" length="1">
+  <void index="0">
+   <object class="zigen.plugin.db.core.DBConfig" id="DBConfig0">
+    <void property="charset">
+     <string></string>
+    </void>
+    <void property="classPaths">
+     <array class="java.lang.String" length="1">
+      <void index="0">
+       <string>C:\Ittraining\JavaTrainingWorkspace\backend\root\tools\dbviewer\mysql-connector-java-8.0.22.jar</string>
+      </void>
+     </array>
+    </void>
+    <void property="convertUnicode">
+     <boolean>true</boolean>
+    </void>
+    <void property="databaseProductVersion">
+     <string>5.7.34-log</string>
+    </void>
+    <void property="dbName">
+     <string>TeamB</string>
+    </void>
+    <void property="dbType">
+     <int>2</int>
+    </void>
+    <void property="displayedSchemas">
+     <array class="zigen.plugin.db.core.SchemaInfo" length="2">
+      <void index="0">
+       <object class="zigen.plugin.db.core.SchemaInfo">
+        <void property="checked">
+         <boolean>true</boolean>
+        </void>
+        <void property="config">
+         <object idref="DBConfig0"/>
+        </void>
+        <void property="name">
+         <string>information_schema</string>
+        </void>
+       </object>
+      </void>
+      <void index="1">
+       <object class="zigen.plugin.db.core.SchemaInfo">
+        <void property="checked">
+         <boolean>true</boolean>
+        </void>
+        <void property="config">
+         <object idref="DBConfig0"/>
+        </void>
+        <void property="name">
+         <string>teamb</string>
+        </void>
+       </object>
+      </void>
+     </array>
+    </void>
+    <void property="driverName">
+     <string>com.mysql.cj.jdbc.Driver</string>
+    </void>
+    <void property="driverVersion">
+     <string>mysql-connector-java-8.0.22 (Revision: d64b664fa93e81296a377de031b8123a67e6def2)</string>
+    </void>
+    <void property="filterPattern">
+     <string></string>
+    </void>
+    <void property="noLockMode">
+     <boolean>true</boolean>
+    </void>
+    <void property="password">
+     <string>training</string>
+    </void>
+    <void property="schema">
+     <string>teamb</string>
+    </void>
+    <void property="url">
+     <string>jdbc:mysql://zein-bn2022-training.ckciplzoe4ah.ap-northeast-1.rds.amazonaws.com:3306/teamb</string>
+    </void>
+    <void property="userId">
+     <string>teamb</string>
+    </void>
+   </object>
+  </void>
+ </array>
+</java>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="17.0.1" class="java.beans.XMLDecoder">
+ <array class="zigen.plugin.db.core.IDBConfig" length="1">
+  <void index="0">
+   <object class="zigen.plugin.db.core.DBConfig">
+    <void property="charset">
+     <string></string>
+    </void>
+    <void property="classPaths">
+     <array class="java.lang.String" length="1">
+      <void index="0">
+       <string>C:\Ittraining\JavaTrainingWorkspace\backend\root\tools\dbviewer\mysql-connector-java-8.0.22.jar</string>
+      </void>
+     </array>
+    </void>
+    <void property="convertUnicode">
+     <boolean>true</boolean>
+    </void>
+    <void property="dbName">
+     <string>AWS-training</string>
+    </void>
+    <void property="dbType">
+     <int>2</int>
+    </void>
+    <void property="driverName">
+     <string>com.mysql.cj.jdbc.Driver</string>
+    </void>
+    <void property="filterPattern">
+     <string></string>
+    </void>
+    <void property="noLockMode">
+     <boolean>true</boolean>
+    </void>
+    <void property="password">
+     <string>training</string>
+    </void>
+    <void property="schema">
+     <string>training</string>
+    </void>
+    <void property="url">
+     <string>jdbc:mysql://zein-bn2022-training.ckciplzoe4ah.ap-northeast-1.rds.amazonaws.com:3306/training</string>
+    </void>
+    <void property="userId">
+     <string>training</string>
+    </void>
+   </object>
+  </void>
+ </array>
+</java>

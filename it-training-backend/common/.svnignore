@@ -1,0 +1,14 @@
+/.gradle
+/build
+/bin
+/.settings
+/gen
+/doma/dao
+/doma/sql
+
+*.class
+*.jar
+*.war
+
+.project
+.classpath

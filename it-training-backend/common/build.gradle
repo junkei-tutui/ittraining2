@@ -1,0 +1,234 @@
+buildscript {
+	ext {
+	    domaCodeGenVersion = '1.4.1'
+	    domaGenVersion = '2.28.0'
+	}
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+		classpath "mysql:mysql-connector-java:${mysqlConnectorVersion}"
+    }
+}
+
+plugins {
+    id 'java-library'
+    id 'org.seasar.doma.codegen' version "${domaCodeGenVersion}"
+}
+
+// Commonのみ別設定とする。
+bootJar {
+    enabled = false
+}
+jar {
+    enabled = true
+}
+
+configurations {
+    domaGenRuntime
+}
+
+repositories {
+    mavenCentral()
+    maven {url 'https://oss.sonatype.org/content/repositories/snapshots/'}
+}
+
+dependencies {
+    //domaGenRuntime 'org.seasar.doma:doma-gen:2.21.0'
+    domaGenRuntime "org.seasar.doma:doma-gen:${domaGenVersion}"
+    domaGenRuntime "mysql:mysql-connector-java"
+
+    implementation 'org.apache.commons:commons-lang3'
+    implementation 'commons-codec:commons-codec'
+
+	compileOnly 'org.springframework.boot:spring-boot-starter-security'
+	implementation "commons-io:commons-io:${commonsIoVersion}"
+	compileOnly 'org.springframework.boot:spring-boot-starter-webflux'
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+}
+
+// SQLファイルから結果セットのエンティティを生成
+//
+// gradle genEntityFromSql -PsqlFileName="/was/src/main/resources/META-INF/jp/zein/it/training/was/dao/WasBelongsEntityDao/selectJoinOrganizationByCompanyIdAndUserId.sql"
+//
+task genEntityFromSql {
+    println "Start genEntityFromSql"
+	doLast {
+		//def dbUrl = 'jdbc:mysql://localhost:3306/training?characterEncoding=UTF-8&serverTimezone=JST'
+		def dbUrl = 'jdbc:mysql://localhost:3306'
+		// def dbUser = 'root'
+		// def dbPassword = 'training'
+		def dbUser = 'training'
+		def dbPassword = 'training'
+
+		def regex = /^(.*)\/resources\/META-INF\/(.*)\/(.*)\.sql$/
+		def matcher = sqlFileName =~ regex
+		def javaFileDir = "../" + matcher[0][1] +"/java"
+		def packageName = matcher[0][2].replace("/", ".").toLowerCase().replace(".dao.",".entity.")
+		def entityName = matcher[0][3].capitalize() + 'Entity'
+
+		println "指定したSQLファイルからEntiyクラスを生成"
+		println "SQLファイル： ${sqlFileName}"
+		println "生成されるEntityクラス： ${javaFileDir} / ${packageName}  /  ${entityName}"
+		
+		def f = new File("../${sqlFileName}")
+		def sql =f.getText("ms932")
+		
+	    ant.taskdef(resource: 'domagentask.properties', classpath: configurations.domaGenRuntime.asPath)
+	    ant.gen(url: dbUrl, user: dbUser, password: dbPassword, driverClassName: "com.mysql.cj.jdbc.Driver") {
+	        entityConfig(packageName: "${packageName}", destDir: "${javaFileDir}", overwrite: true, entityName: "${entityName}", sql: "${sql}")
+		}
+	}
+}
+
+// Doma-GenでEntity/Dao/SQLファイルを生成する
+// 事前条件：MySQLが稼働していること
+//
+// call ../gradlew domaCodeGenTrainingDao domaCodeGenTrainingEntity domaCodeGenTrainingSql
+//
+domaCodeGen {
+    training {
+		def templatePath = file("$projectDir/doma/templates")
+		def parentPackageName = 'jp.zein.it.training.common.generate'
+		def entityClassNameSuffix = 'Entity'
+
+		println "MySQLからEntity、Dao、SQLファイルの生成"
+		println "Entity/Daoインターフェースの出力先： $projectDir/src/main/java"
+		println "SQLファイルの出力先： $projectDir/src/main/resources"
+		
+        //url = 'jdbc:mysql://localhost:3306/training?characterEncoding=UTF-8&serverTimezone=JST'
+        url = 'jdbc:mysql://localhost:3306/training'
+        //user = 'root'
+        //password = 'training'
+        user = 'training'
+        password = 'training'
+        schemaName = 'training'
+        // tableTypes = ['TABLE', 'VIEW']
+        tableTypes = ['TABLE']
+        templateDir = templatePath
+
+        entity {
+          packageName = "${parentPackageName}.entity"
+          overwrite = true
+          overwriteListener = true
+          suffix = entityClassNameSuffix
+          showDbComment = true
+
+          useMetamodel = true
+          useMappedSuperclass = false
+          listenerSuperclassName = 'jp.zein.it.training.common.internal.entity.TrainingEntityListener'
+        }
+
+        dao {
+          packageName = "${parentPackageName}.dao"
+          overwrite = true
+		}
+
+		sql {
+			overwrite = true
+		}
+    }
+}
+
+// domaタスクで作成したDaoインターフェースを継承したCommon～Daoインターフェースの生成
+// 事前条件：domaタスクを実行済み
+// 
+// call ../gradlew genCommonDao
+//
+// 実施後、root\common\doma\common_daoに作成されたファイルをパッケージ：jp.zein.it.training.common.daoにコピーする。
+task genCommonDao {
+	println "Start genCommonDao"
+	doLast {
+		def	supperInterfaceDir = "$projectDir/src/main/java/jp/zein/it/training/common/generate/dao"
+		def	outputDir = "$projectDir/doma/common_dao"
+		def	supperInterfacePackageName = 'jp.zein.it.training.common.generate.dao'
+		def	supperInterfacePrefix = ''
+		def	subInterfacePrefix = 'Common'
+		def	subInterfacePackageName = 'jp.zein.it.training.common.dao'
+
+		println '共通Daoインターフェース生成'
+		println "Daoインターフェースのプレフィックス： ${subInterfacePrefix}"
+		println "Daoインターフェースのパッケージ： ${subInterfacePackageName}"
+		println "Daoインターフェースの出力先： ${outputDir}"
+		println "必要に応じてDaoインターフェースのJavaソースファイルをコピーしてください"
+		
+		def srcDir="$projectDir/src/main/java"
+		def templateDir = "$projectDir/doma/templates"
+		def templateFileName = 'extendDoaInterface.template'
+
+		FileTree map = fileTree(dir: supperInterfaceDir, include: '**/*.java')
+		map.each {
+
+			def interfaceName = it.name.replace('.java', '').replace(supperInterfacePrefix, '')
+
+			copy {
+			    from templateDir
+			    include templateFileName
+			    into outputDir
+
+			    expand([
+			        packageName: subInterfacePackageName,
+			        supperInterfacePackageName: supperInterfacePackageName,
+			        superInterfaceName: "${supperInterfacePrefix}${interfaceName}",
+			        subInterfaceName: "${subInterfacePrefix}${interfaceName}"
+			    ])
+
+			    rename templateFileName,"${subInterfacePrefix}${interfaceName}.java"
+			}
+		}
+	}
+}
+
+// genCommonDaoタスクで作成したDaoインターフェースを継承したプロジェクト固有Daoインターフェースの生成
+// 事前条件：genCommonDaoタスクを実行済み
+//
+// call ../gradlew genProjectDao -PtrainingProjectName="was"
+//
+// ※trainingProjectNameに指定するプロジェクト名は、lower Camel形式
+// 実施後、root\common\doma\project_daoに作成されたファイルをパッケージ：jp.zein.it.training.<プロジェクト名>.daoにコピーする。
+task genProjectDao {
+	println "Start genProjectDao"
+	doLast {
+		def	subInterfacePrefix = trainingProjectName.capitalize()
+		def	subInterfacePackageName = "jp.zein.it.training.${trainingProjectName}.dao"
+
+		def	supperInterfaceDir = "$projectDir/src/main/java/jp/zein/it/training/common/dao"
+		def	outputDir = "$projectDir/doma/project_dao"
+		def	supperInterfacePackageName = 'jp.zein.it.training.common.dao'
+		def	supperInterfacePrefix = 'Common'
+
+		def srcDir="$projectDir/src/main/java"
+		def templateDir = "$projectDir/doma/templates"
+		def templateFileName = 'extendDoaInterface.template'
+
+		println 'プロジェクト固有Daoインターフェース生成'
+		println "Daoインターフェースのプレフィックス： ${subInterfacePrefix}"
+		println "Daoインターフェースのパッケージ： ${subInterfacePackageName}"
+		println "Daoインターフェースの出力先： ${outputDir}"
+		println "必要に応じてDaoインターフェースのJavaソースファイルをコピーしてください"
+		
+		FileTree map = fileTree(dir: supperInterfaceDir, include: '**/*.java', exclude:  '**/package.java')
+		map.each {
+
+			def interfaceName = it.name.replace('.java', '').replace(supperInterfacePrefix, '')
+
+			copy {
+			    from templateDir
+			    include templateFileName
+			    into outputDir
+
+			    expand([
+			        packageName: subInterfacePackageName,
+			        supperInterfacePackageName: supperInterfacePackageName,
+			        superInterfaceName: "${supperInterfacePrefix}${interfaceName}",
+			        subInterfaceName: "${subInterfacePrefix}${interfaceName}"
+			    ])
+
+			    rename templateFileName,"${subInterfacePrefix}${interfaceName}.java"
+			}
+		}
+	}
+}
+

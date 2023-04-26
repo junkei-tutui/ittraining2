@@ -1,0 +1,16 @@
+/docker/mysql/data
+
+/.gradle
+/build
+/bin
+/.settings
+
+*.class
+*.jar
+*.war
+!gradle-wrapper.jar
+!mysql-connector-java*.jar
+
+.project
+.classpath
+.factorypath

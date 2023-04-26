@@ -1,0 +1,13 @@
+/.gradle
+/build
+/bin
+/.settings
+/.apt_generated
+/.apt_generated_tests
+
+*.class
+*.jar
+*.war
+
+.project
+.classpath
